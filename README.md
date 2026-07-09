@@ -4,21 +4,14 @@ A repo-ready Codex marketplace containing `skills-audit`, a privacy-safe invento
 
 ## Install
 
-The repository is private, so authenticate Git/GitHub access before installing. Prefer HTTPS credentials to avoid SSH host-key and key-distribution requirements:
-
-```bash
-gh auth status
-gh auth setup-git
-```
-
-If authentication is not configured yet, run `gh auth login` interactively first. Never put a personal access token directly in an install command. The audit script requires Python 3.9 or newer and has no third-party Python dependencies.
+The repository is public. Use its explicit HTTPS URL to avoid SSH host-key and key-distribution requirements. No GitHub credentials are required for installation. The audit script requires Python 3.9 or newer and has no third-party Python dependencies.
 
 ### Codex — marketplace plugin
 
 Codex supports this repository as a Git marketplace. The commands below were verified against the installed `codex plugin` help:
 
 ```bash
-codex plugin marketplace add adibirzu/curated-skills-marketplace --ref v0.2.0
+codex plugin marketplace add adibirzu/curated-skills-marketplace --ref v0.2.1
 codex plugin add skills-audit@curated-skills
 codex plugin add just-do-it@curated-skills
 codex plugin list
@@ -31,11 +24,11 @@ Start a new Codex thread after installation so the new skills are discovered:
 
 The marketplace/plugin name is `just-do-it`; the skill name exposed to the agent is `jd`.
 
-If you previously installed the marketplace at `v0.1.1`, that pinned snapshot cannot contain Just Do It. Move to the reviewed `v0.2.0` snapshot:
+If you previously installed the marketplace at `v0.1.1`, that pinned snapshot cannot contain Just Do It. Move to the reviewed `v0.2.1` snapshot:
 
 ```bash
 codex plugin marketplace remove curated-skills
-codex plugin marketplace add adibirzu/curated-skills-marketplace --ref v0.2.0
+codex plugin marketplace add adibirzu/curated-skills-marketplace --ref v0.2.1
 codex plugin add just-do-it@curated-skills
 ```
 
@@ -84,13 +77,13 @@ Reopen the workspace or start a new Agent chat, then invoke `/audit-skills-plugi
 Use the explicit HTTPS Git URL. Do not use the `adibirzu/curated-skills-marketplace` shorthand in environments that default GitHub clones to SSH:
 
 ```text
-/plugin marketplace add https://github.com/adibirzu/curated-skills-marketplace.git#v0.2.0
+/plugin marketplace add https://github.com/adibirzu/curated-skills-marketplace.git#v0.2.1
 /plugin install skills-audit@curated-skills
 /plugin install just-do-it@curated-skills
 /reload-plugins
 ```
 
-The SSH error `No ED25519 host key is known for github.com` means the shorthand selected SSH before Claude could read the marketplace. The HTTPS command above avoids `known_hosts`; because the repository is private, Git still needs authorized HTTPS credentials from `gh auth setup-git` or another secure credential helper.
+The SSH error `No ED25519 host key is known for github.com` means the shorthand selected SSH before Claude could read the marketplace. The public HTTPS command above avoids `known_hosts` and does not require GitHub authentication.
 
 For a standalone-skill installation instead of Claude's plugin marketplace, clone over HTTPS and copy the skills at personal scope:
 
