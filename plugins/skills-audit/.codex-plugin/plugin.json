@@ -1,6 +1,6 @@
 {
   "name": "skills-audit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Privacy-safe inventory, token-footprint reporting, and curation for Codex skills and plugins",
   "author": {
     "name": "adibirzu",

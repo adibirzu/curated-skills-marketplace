@@ -479,12 +479,28 @@ def render_markdown(report: dict[str, Any], candidates: list[dict[str, Any]]) ->
 
 def default_skill_roots() -> list[str]:
     home = Path.home()
-    return [str(home / ".codex" / "skills"), str(home / ".agents" / "skills"), str(home / ".codex" / "plugins")]
+    project = Path.cwd()
+    return [
+        str(home / ".codex" / "skills"),
+        str(home / ".cursor" / "skills"),
+        str(home / ".claude" / "skills"),
+        str(home / ".agents" / "skills"),
+        str(home / ".codex" / "plugins"),
+        str(project / ".codex" / "skills"),
+        str(project / ".cursor" / "skills"),
+        str(project / ".claude" / "skills"),
+        str(project / ".agents" / "skills"),
+    ]
 
 
 def default_plugin_roots() -> list[str]:
     home = Path.home()
-    return [str(home / ".codex" / "plugins"), str(home / "plugins")]
+    return [
+        str(home / ".codex" / "plugins"),
+        str(home / ".cursor" / "plugins"),
+        str(home / ".claude" / "plugins"),
+        str(home / "plugins"),
+    ]
 
 
 def parser() -> argparse.ArgumentParser:

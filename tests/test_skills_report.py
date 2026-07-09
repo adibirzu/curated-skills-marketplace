@@ -191,6 +191,14 @@ class SkillsReportTests(unittest.TestCase):
             report = json.loads((output / "skills-plugins-report.json").read_text())
             self.assertEqual(report["methodology"]["per_skill_token_usage"], "estimated")
 
+    def test_default_roots_cover_codex_cursor_and_claude_skills(self):
+        roots = self.report.default_skill_roots()
+
+        self.assertTrue(any(path.endswith("/.codex/skills") for path in roots))
+        self.assertTrue(any(path.endswith("/.cursor/skills") for path in roots))
+        self.assertTrue(any(path.endswith("/.claude/skills") for path in roots))
+        self.assertTrue(any(path.endswith("/.agents/skills") for path in roots))
+
 
 if __name__ == "__main__":
     unittest.main()
