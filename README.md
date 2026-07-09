@@ -83,6 +83,8 @@ Use the explicit HTTPS Git URL. Do not use the `adibirzu/curated-skills-marketpl
 /reload-plugins
 ```
 
+After reloading, invoke `/just-do-it:jd` for Just Do It or `/skills-audit:audit-skills-plugins` for the audit workflow. Claude namespaces marketplace skills by plugin name.
+
 The SSH error `No ED25519 host key is known for github.com` means the shorthand selected SSH before Claude could read the marketplace. The public HTTPS command above avoids `known_hosts` and does not require GitHub authentication.
 
 For a standalone-skill installation instead of Claude's plugin marketplace, clone over HTTPS and copy the skills at personal scope:
