@@ -1,0 +1,20 @@
+{
+  "name": "curated-skills",
+  "interface": {
+    "displayName": "Curated Skills"
+  },
+  "plugins": [
+    {
+      "name": "skills-audit",
+      "source": {
+        "source": "local",
+        "path": "./plugins/skills-audit"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

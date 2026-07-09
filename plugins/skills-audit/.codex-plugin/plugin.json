@@ -1,0 +1,36 @@
+{
+  "name": "skills-audit",
+  "version": "0.1.0",
+  "description": "Privacy-safe inventory, token-footprint reporting, and curation for Codex skills and plugins",
+  "author": {
+    "name": "adibirzu",
+    "url": "https://github.com/adibirzu"
+  },
+  "homepage": "https://github.com/adibirzu/curated-skills-marketplace#readme",
+  "repository": "https://github.com/adibirzu/curated-skills-marketplace",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "skills",
+    "plugins",
+    "token-audit",
+    "marketplace"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Skills and Plugins Audit",
+    "shortDescription": "Audit skills, plugins, and prompt-token estimates.",
+    "longDescription": "Inventory Codex skills, plugins, and marketplaces; report measured session totals without exporting prompts; and prepare external projects for a gated human review.",
+    "developerName": "adibirzu",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Audit my installed skills and plugins.",
+      "Report skill prompt-size estimates safely.",
+      "Prepare external projects for curation review."
+    ]
+  }
+}

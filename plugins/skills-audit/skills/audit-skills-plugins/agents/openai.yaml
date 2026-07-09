@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit Skills and Plugins"
+  short_description: "Inventory skills, plugins, and token estimates"
+  default_prompt: "Use $audit-skills-plugins to create a privacy-safe skills and plugins usage report."

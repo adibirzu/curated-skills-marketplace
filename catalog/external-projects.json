@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "policy": "review-only",
+  "projects": [
+    {
+      "name": "rlm-plugin",
+      "repository": "https://github.com/adibirzu/rlm-plugin",
+      "revision": "0707a7fd0104ec366f35f6b2a2576fcc156f3f51",
+      "license": "MIT",
+      "status": "review-required",
+      "review_reasons": [
+        "source-review-pending",
+        "unsigned-commit"
+      ],
+      "provenance": {
+        "visibility": "public",
+        "archived": false,
+        "commit_verified": false,
+        "commit_date": "2026-07-04T19:02:26Z"
+      }
+    },
+    {
+      "name": "oci-skills",
+      "repository": "https://github.com/adibirzu/oci-skills",
+      "revision": "c4cae81ce6b4ab052e843d39caa9726caa254cb5",
+      "license": "MIT",
+      "status": "review-required",
+      "review_reasons": [
+        "credential-and-cloud-control-plane-surface",
+        "source-review-pending",
+        "unsigned-commit"
+      ],
+      "provenance": {
+        "visibility": "public",
+        "archived": false,
+        "commit_verified": false,
+        "commit_date": "2026-07-08T09:29:13Z"
+      }
+    },
+    {
+      "name": "codex-observability-plugin",
+      "repository": "https://github.com/langfuse/codex-observability-plugin",
+      "revision": "6882ab7e117409265e233124ec2008fed8fc227c",
+      "license": "MIT",
+      "status": "review-required",
+      "review_reasons": [
+        "lifecycle-hook",
+        "network-egress-and-telemetry-surface",
+        "source-review-pending"
+      ],
+      "provenance": {
+        "visibility": "public",
+        "archived": false,
+        "commit_verified": true,
+        "commit_date": "2026-06-04T12:00:16Z"
+      }
+    },
+    {
+      "name": "everything-claude-code",
+      "repository": "https://github.com/affaan-m/ECC",
+      "revision": "40927950c49f6e742d341e20ff7b9b7e1e7bfff5",
+      "license": "MIT",
+      "status": "review-required",
+      "review_reasons": [
+        "large-agent-and-skill-supply-chain",
+        "mcp-and-script-surfaces",
+        "source-review-pending"
+      ],
+      "provenance": {
+        "visibility": "public",
+        "archived": false,
+        "commit_verified": true,
+        "commit_date": "2026-07-09T07:53:51Z"
+      }
+    }
+  ]
+}
