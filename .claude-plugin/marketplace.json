@@ -1,0 +1,33 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "curated-skills",
+  "description": "Curated, pinned skills for safe delivery and skills/plugin auditing.",
+  "owner": {
+    "name": "adibirzu",
+    "url": "https://github.com/adibirzu"
+  },
+  "plugins": [
+    {
+      "name": "skills-audit",
+      "description": "Privacy-safe inventory, token-footprint reporting, and curation for skills and plugins.",
+      "version": "0.1.1",
+      "author": {
+        "name": "adibirzu"
+      },
+      "source": "./plugins/skills-audit",
+      "category": "development",
+      "homepage": "https://github.com/adibirzu/curated-skills-marketplace"
+    },
+    {
+      "name": "just-do-it",
+      "description": "Turn one goal into reviewed PRDs and model-tiered agent tasks with strict isolation and durable recovery.",
+      "version": "1.2.0",
+      "author": {
+        "name": "adibirzu"
+      },
+      "source": "./plugins/just-do-it",
+      "category": "development",
+      "homepage": "https://github.com/adibirzu/curated-skills-marketplace"
+    }
+  ]
+}

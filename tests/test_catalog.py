@@ -1,4 +1,5 @@
 import json
+import hashlib
 import re
 import unittest
 from pathlib import Path
@@ -22,6 +23,45 @@ class ExternalCatalogTests(unittest.TestCase):
             self.assertEqual(project["status"], "review-required")
             self.assertIn("source-review-pending", project["review_reasons"])
             self.assertTrue(project["license"])
+
+    def test_marketplace_contains_installable_just_do_it_plugin(self):
+        root = Path(__file__).parents[1]
+        marketplace = json.loads(
+            (root / ".agents" / "plugins" / "marketplace.json").read_text(encoding="utf-8")
+        )
+        entries = {entry["name"]: entry for entry in marketplace["plugins"]}
+
+        self.assertIn("just-do-it", entries)
+        self.assertEqual(entries["just-do-it"]["policy"]["installation"], "AVAILABLE")
+        source_path = entries["just-do-it"]["source"]["path"]
+        plugin_root = root / source_path
+        self.assertTrue((plugin_root / ".codex-plugin" / "plugin.json").is_file())
+        self.assertTrue((plugin_root / "skills" / "jd" / "SKILL.md").is_file())
+
+        upstream = json.loads((plugin_root / "UPSTREAM.json").read_text(encoding="utf-8"))
+        manifest_digest = hashlib.sha256(
+            (plugin_root / ".codex-plugin" / "plugin.json").read_bytes()
+        ).hexdigest()
+        skill_digest = hashlib.sha256(
+            (plugin_root / "skills" / "jd" / "SKILL.md").read_bytes()
+        ).hexdigest()
+        self.assertEqual(manifest_digest, upstream["manifest_sha256"])
+        self.assertEqual(skill_digest, upstream["skill_sha256"])
+        self.assertEqual(upstream["status"], "vendored-reviewed")
+
+    def test_claude_marketplace_contains_just_do_it_and_skills_audit(self):
+        root = Path(__file__).parents[1]
+        marketplace = json.loads(
+            (root / ".claude-plugin" / "marketplace.json").read_text(encoding="utf-8")
+        )
+        entries = {entry["name"]: entry for entry in marketplace["plugins"]}
+
+        self.assertEqual(set(entries), {"just-do-it", "skills-audit"})
+        self.assertEqual(entries["just-do-it"]["source"], "./plugins/just-do-it")
+        self.assertEqual(entries["skills-audit"]["source"], "./plugins/skills-audit")
+        self.assertTrue(
+            (root / "plugins" / "skills-audit" / ".claude-plugin" / "plugin.json").is_file()
+        )
 
 
 if __name__ == "__main__":

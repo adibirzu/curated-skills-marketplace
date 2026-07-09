@@ -30,6 +30,16 @@
         "source-review-pending",
         "unsigned-commit"
       ],
+      "approved_components": [
+        {
+          "name": "just-do-it",
+          "source_path": "plugins/just-do-it",
+          "version": "1.2.0",
+          "status": "vendored-reviewed",
+          "manifest_sha256": "dc889686515f0962174398b9f9289cb4cfa3136949978a0b368f918722a40ec8",
+          "skill_sha256": "503d842205a917acc6e1241c3837b1557eceeb68aa59f909a76829501d207024"
+        }
+      ],
       "provenance": {
         "visibility": "public",
         "archived": false,

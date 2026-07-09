@@ -1,28 +1,59 @@
 # Curated Skills Marketplace
 
-A repo-ready Codex marketplace containing `skills-audit`, a privacy-safe inventory and token-footprint reporter for Skills and Plugins.
+A repo-ready Codex marketplace containing `skills-audit`, a privacy-safe inventory and token-footprint reporter, and `just-do-it`, a guarded autonomous delivery skill exposed as `$jd`.
 
 ## Install
 
-The repository is private, so authenticate Git/GitHub access before installing. The audit script requires Python 3.9 or newer and has no third-party Python dependencies.
+The repository is private, so authenticate Git/GitHub access before installing. Prefer HTTPS credentials to avoid SSH host-key and key-distribution requirements:
+
+```bash
+gh auth status
+gh auth setup-git
+```
+
+If authentication is not configured yet, run `gh auth login` interactively first. Never put a personal access token directly in an install command. The audit script requires Python 3.9 or newer and has no third-party Python dependencies.
 
 ### Codex — marketplace plugin
 
 Codex supports this repository as a Git marketplace. The commands below were verified against the installed `codex plugin` help:
 
 ```bash
-codex plugin marketplace add adibirzu/curated-skills-marketplace --ref v0.1.1
+codex plugin marketplace add adibirzu/curated-skills-marketplace --ref v0.2.0
 codex plugin add skills-audit@curated-skills
+codex plugin add just-do-it@curated-skills
 codex plugin list
 ```
 
-Start a new Codex thread after installation so the new skill is discovered. Ask Codex to `Use $audit-skills-plugins to audit my installed skills and plugins.`
+Start a new Codex thread after installation so the new skills are discovered:
+
+- Ask Codex to `Use $audit-skills-plugins to audit my installed skills and plugins.`
+- Invoke Just Do It with `$jd`, for example: `Use $jd to deliver this goal through verified completion.`
+
+The marketplace/plugin name is `just-do-it`; the skill name exposed to the agent is `jd`.
+
+If you previously installed the marketplace at `v0.1.1`, that pinned snapshot cannot contain Just Do It. Move to the reviewed `v0.2.0` snapshot:
+
+```bash
+codex plugin marketplace remove curated-skills
+codex plugin marketplace add adibirzu/curated-skills-marketplace --ref v0.2.0
+codex plugin add just-do-it@curated-skills
+```
+
+Installing the plugin is enough to use `$jd`. Its optional named Codex roles are inert templates until you explicitly run their installer from a trusted checkout. That optional installer requires Python 3.11 or newer:
+
+```bash
+python3.11 plugins/just-do-it/skills/jd/scripts/install_codex_roles.py check
+python3.11 plugins/just-do-it/skills/jd/scripts/install_codex_roles.py install
+```
+
+Review the proposed global Codex configuration change before running `install`; the installer creates private backups, refuses unmanaged collisions and symlinks, and writes atomically.
 
 For a local checkout instead of the Git marketplace:
 
 ```bash
 codex plugin marketplace add /absolute/path/to/curated-skills-marketplace
 codex plugin add skills-audit@curated-skills
+codex plugin add just-do-it@curated-skills
 ```
 
 ### Cursor — portable Agent Skill
@@ -30,10 +61,11 @@ codex plugin add skills-audit@curated-skills
 This repository is not published as a native Cursor Marketplace plugin. Install its portable skill directory at user scope:
 
 ```bash
-gh repo clone adibirzu/curated-skills-marketplace
+git clone https://github.com/adibirzu/curated-skills-marketplace.git
 cd curated-skills-marketplace
 mkdir -p ~/.cursor/skills
 cp -R plugins/skills-audit/skills/audit-skills-plugins ~/.cursor/skills/
+cp -R plugins/just-do-it/skills/jd ~/.cursor/skills/
 ```
 
 For project-only installation, copy it to the target repository instead:
@@ -42,19 +74,32 @@ For project-only installation, copy it to the target repository instead:
 mkdir -p /path/to/project/.cursor/skills
 cp -R plugins/skills-audit/skills/audit-skills-plugins \
   /path/to/project/.cursor/skills/
+cp -R plugins/just-do-it/skills/jd /path/to/project/.cursor/skills/
 ```
 
-Reopen the workspace or start a new Agent chat, then invoke `/audit-skills-plugins` or ask Cursor to audit your skills and plugins. Cursor also supports the equivalent `.agents/skills/` locations. See the official [Cursor Agent Skills documentation](https://cursor.com/docs/skills).
+Reopen the workspace or start a new Agent chat, then invoke `/audit-skills-plugins` or `/jd`. Cursor also supports the equivalent `.agents/skills/` locations. See the official [Cursor Agent Skills documentation](https://cursor.com/docs/skills).
 
-### Claude Code — portable standalone Skill
+### Claude Code — HTTPS marketplace plugin
 
-This repository does not currently include a Claude plugin-marketplace manifest. Install the portable skill at personal scope:
+Use the explicit HTTPS Git URL. Do not use the `adibirzu/curated-skills-marketplace` shorthand in environments that default GitHub clones to SSH:
+
+```text
+/plugin marketplace add https://github.com/adibirzu/curated-skills-marketplace.git#v0.2.0
+/plugin install skills-audit@curated-skills
+/plugin install just-do-it@curated-skills
+/reload-plugins
+```
+
+The SSH error `No ED25519 host key is known for github.com` means the shorthand selected SSH before Claude could read the marketplace. The HTTPS command above avoids `known_hosts`; because the repository is private, Git still needs authorized HTTPS credentials from `gh auth setup-git` or another secure credential helper.
+
+For a standalone-skill installation instead of Claude's plugin marketplace, clone over HTTPS and copy the skills at personal scope:
 
 ```bash
-gh repo clone adibirzu/curated-skills-marketplace
+git clone https://github.com/adibirzu/curated-skills-marketplace.git
 cd curated-skills-marketplace
 mkdir -p ~/.claude/skills
 cp -R plugins/skills-audit/skills/audit-skills-plugins ~/.claude/skills/
+cp -R plugins/just-do-it/skills/jd ~/.claude/skills/
 ```
 
 For project-only installation:
@@ -63,9 +108,10 @@ For project-only installation:
 mkdir -p /path/to/project/.claude/skills
 cp -R plugins/skills-audit/skills/audit-skills-plugins \
   /path/to/project/.claude/skills/
+cp -R plugins/just-do-it/skills/jd /path/to/project/.claude/skills/
 ```
 
-Invoke `/audit-skills-plugins` in Claude Code. If the top-level `skills` directory did not exist when Claude started, restart Claude Code once so it can watch the directory. See Anthropic's official [Claude Code Skills documentation](https://code.claude.com/docs/en/slash-commands).
+Invoke `/audit-skills-plugins` or `/jd` in Claude Code. If the top-level `skills` directory did not exist when Claude started, restart Claude Code once so it can watch the directory. See Anthropic's official [Claude Code Skills documentation](https://code.claude.com/docs/en/slash-commands).
 
 ### Updating Cursor or Claude copies
 
@@ -101,6 +147,9 @@ The repository-level [`catalog/external-projects.json`](catalog/external-project
 ```bash
 python3 -m unittest discover -s tests -v
 python3 /path/to/plugin-creator/scripts/validate_plugin.py plugins/skills-audit
+python3 /path/to/plugin-creator/scripts/validate_plugin.py plugins/just-do-it
 python3 /path/to/skill-creator/scripts/quick_validate.py \
   plugins/skills-audit/skills/audit-skills-plugins
+python3 /path/to/skill-creator/scripts/quick_validate.py \
+  plugins/just-do-it/skills/jd
 ```

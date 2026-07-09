@@ -1,0 +1,11 @@
+{
+  "repository": "https://github.com/adibirzu/oci-skills",
+  "revision": "c4cae81ce6b4ab052e843d39caa9726caa254cb5",
+  "source_path": "plugins/just-do-it",
+  "version": "1.2.0",
+  "license": "MIT",
+  "reviewed_at": "2026-07-09",
+  "manifest_sha256": "dc889686515f0962174398b9f9289cb4cfa3136949978a0b368f918722a40ec8",
+  "skill_sha256": "503d842205a917acc6e1241c3837b1557eceeb68aa59f909a76829501d207024",
+  "status": "vendored-reviewed"
+}
