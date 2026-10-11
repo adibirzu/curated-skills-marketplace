@@ -28,10 +28,8 @@ When a read-only scout discovers a bounded fix:
 4. Assign a canonical path lease and execute the normal implementation and review loop.
 
 Promotion avoids duplicate discovery but never skips required tests, ownership, or review.
-For eligible ordinary reversible local-only work when a compatible independent reviewer is
-unavailable, apply `SKILL.md` section 5's `locally_verified_review_unavailable` fallback with all
-its conditions and limitations. Sensitive, IAM, credential, external-write, publication, and
-release work retain their required independent and security review gates.
+Apply the [review policy](../SKILL.md#5-review-proportionately), including its local-only fallback
+conditions and protected gates, and the [program closure requirements](../SKILL.md#7-close-the-program).
 
 ## Change-request readiness
 

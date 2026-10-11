@@ -25,9 +25,8 @@ Use at most one pass through each stage per attempt and emit a `RECOVERY` packet
 4. **Fail** after two relaunch failures or an explicit user attempt, time, or cost limit, recording
    evidence and escalating one consolidated question to the user when no safe alternative remains.
 
-The default three-attempt counter is advisory for authorized local work: continue a repair when it
-produces concrete new evidence and remains within the authority envelope, recording the counter
-and rationale.
+Apply the [execution budget policy](../SKILL.md#6-continue-autonomously) when deciding whether
+to continue a local repair; record the counter and rationale.
 
 Low remaining context is not itself a failure; compact and continue. A repeated blocker without
 new evidence is a stall. Do not repeatedly send the same instruction.

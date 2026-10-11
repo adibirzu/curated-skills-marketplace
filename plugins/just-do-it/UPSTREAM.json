@@ -4,7 +4,7 @@
   "version": "1.5.0",
   "license": "MIT",
   "manifest_sha256": "2ef210aae439dc184ccbed57c8b13c57b87cbfb2b49deaec96d6591b1e66c262",
-  "skill_sha256": "4412b26a7d086af10725045ae326f68c20f336d7b9a7412e56783ca4012144b9",
+  "skill_sha256": "c29d128c3c396b947fa22a4630646e3b321223921435e70a3a459b10ebc10733",
   "status": "validation-pending",
   "historical_upstream": {
     "revision": "0760ec9913bdedb26f217cf5082d4886b5748eac",
