@@ -47,7 +47,27 @@ class ExternalCatalogTests(unittest.TestCase):
         ).hexdigest()
         self.assertEqual(manifest_digest, upstream["manifest_sha256"])
         self.assertEqual(skill_digest, upstream["skill_sha256"])
-        self.assertEqual(upstream["status"], "vendored-reviewed")
+        self.assertEqual(upstream["status"], "validation-pending")
+        historical = upstream["historical_upstream"]
+        self.assertRegex(historical["revision"], FULL_SHA)
+        self.assertEqual(historical["revision_status"], "released-main")
+        self.assertEqual(historical["status"], "vendored-reviewed")
+        self.assertNotEqual(historical["skill_sha256"], skill_digest)
+        self.assertEqual(upstream["native_provenance"]["evidence_class"], "unverified")
+        release = json.loads(
+            (plugin_root / "skills" / "jd" / "assets" / "jd-release.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(release["status"], "validation-pending")
+        self.assertEqual(release["gates"], {
+            "skill_validation": False,
+            "contract_tests": False,
+            "strict_config": False,
+            "security_scan": False,
+            "forward_test": False,
+            "distribution_parity": False,
+        })
 
     def test_claude_marketplace_contains_just_do_it_and_skills_audit(self):
         root = Path(__file__).parents[1]

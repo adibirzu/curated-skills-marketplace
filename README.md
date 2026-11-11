@@ -24,6 +24,12 @@ Start a new Codex thread after installation so the new skills are discovered:
 
 The marketplace/plugin name is `just-do-it`; the skill name exposed to the agent is `jd`.
 
+For JD execution modes, review requirements, and execution budgets, follow the
+[canonical skill contract](plugins/just-do-it/skills/jd/SKILL.md). Before using a current checkout
+or portable copy, inspect its [payload provenance](plugins/just-do-it/UPSTREAM.json) and
+[release gates](plugins/just-do-it/skills/jd/assets/jd-release.json); a historical reviewed snapshot
+does not establish acceptance of changed bytes.
+
 If you previously installed the marketplace at `v0.1.1`, that pinned snapshot cannot contain Just Do It. Move to the reviewed `v0.2.1` snapshot:
 
 ```bash
